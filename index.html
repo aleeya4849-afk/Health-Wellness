@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LanguageBuddy - Find Your Perfect Language Partner</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00B4D8;
+            --primary-light: #48CAE4;
+            --primary-dark: #0096C7;
+            --secondary: #FF6B6B;
+            --accent: #4CC9F0;
+            --teal: #00B4A6;
+            --coral: #FF8A5B;
+            --text-dark: #2D3748;
+            --text-light: #6B7280;
+            --bg-light: #FFFFFF;
+            --bg-light-secondary: #F7FAFC;
+            --bg-dark: #1A202C;
+            --bg-dark-secondary: #2D3748;
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+            --gradient: linear-gradient(135deg, var(--primary), var(--teal));
+            --gradient-vibrant: linear-gradient(135deg, var(--primary), var(--teal), var(--coral));
+        }
+
+        .dark-mode {
+            --text-dark: #F7FAFC;
+            --text-light: #CBD5E0;
+            --bg-light: #1A202C;
+            --bg-light-secondary: #2D3748;
+            --bg-dark: #FFFFFF;
+            --bg-dark-secondary: #F7FAFC;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            transition: var(--transition);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-light);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .dark-mode .scrolled {
+            background-color: rgba(26, 32, 44, 0.95);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            margin-right: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: var(--card-shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 20px -5px rgba(0, 180, 216, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+            box-shadow: var(--card-shadow);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 20px -5px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 0 5rem;
+            background: var(--gradient-vibrant);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .chat-avatars {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin: 0 -10px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .avatar:nth-child(1) {
+            background: linear-gradient(135deg, #FFD166, #EF476F);
+            z-index: 3;
+        }
+
+        .avatar:nth-child(2) {
+            background: linear-gradient(135deg, #118AB2, #073B4C);
+            z-index: 2;
+        }
+
+        .avatar:nth-child(3) {
+            background: linear-gradient(135deg, #06D6A0, #04A777);
+            z-index: 1;
+        }
+
+        .chat-bubble {
+            background: white;
+            color: var(--text-dark);
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            max-width: 300px;
+            margin: 0 auto;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .chat-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 10px solid transparent;
+            border-top-color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            width: 30px;
+            height: 30px;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            width: 70px;
+            height: 70px;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 20%;
+            left: 10%;
+            width: 40px;
+            height: 40px;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* How It Works Section */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient);
+            z-index: 1;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: var(--bg-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .step:hover .step-icon {
+            transform: scale(1.1);
+            background: var(--gradient);
+            color: white;
+        }
+
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step p {
+            color: var(--text-light);
+        }
+
+        /* Features Section */
+        .features {
+            background-color: var(--bg-light-secondary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Find a Buddy Section */
+        .buddy-search {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 3rem;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .buddies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .buddy-card {
+            background: var(--bg-light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .buddy-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .buddy-header {
+            padding: 1.5rem;
+            text-align: center;
+            background: var(--gradient);
+            color: white;
+        }
+
+        .buddy-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            border: 4px solid white;
+            overflow: hidden;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .buddy-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .buddy-location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .buddy-location i {
+            margin-right: 0.5rem;
+        }
+
+        .buddy-content {
+            padding: 1.5rem;
+        }
+
+        .buddy-languages {
+            margin-bottom: 1rem;
+        }
+
+        .language-tag {
+            display: inline-block;
+            background: var(--bg-light-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .buddy-bio {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .buddy-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .buddy-actions .btn {
+            flex: 1;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Chat Preview Section */
+        .chat-preview {
+            background-color: var(--bg-light-secondary);
+        }
+
+        .chat-container {
+            display: flex;
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        .chat-sidebar {
+            width: 30%;
+            background: var(--bg-light-secondary);
+            border-right: 1px solid #E5E7EB;
+            padding: 1.5rem;
+        }
+
+        .chat-contact {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chat-contact.active, .chat-contact:hover {
+            background: var(--bg-light);
+        }
+
+        .contact-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .contact-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-info p {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #E5E7EB;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+
+        .message {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .message.received {
+            justify-content: flex-start;
+        }
+
+        .message.sent {
+            justify-content: flex-end;
+        }
+
+        .message-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .message.sent .message-avatar {
+            margin-right: 0;
+            margin-left: 0.75rem;
+            order: 2;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 1rem;
+            border-radius: 18px;
+            position: relative;
+            animation: messageAppear 0.3s ease-out;
+        }
+
+        .message.received .message-bubble {
+            background: var(--bg-light-secondary);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.sent .message-bubble {
+            background: var(--gradient);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-input {
+            padding: 1.5rem;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input .form-control {
+            flex: 1;
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Testimonials */
+        .testimonials-slider {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .testimonials-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial {
+            min-width: 100%;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .testimonial-content {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+        }
+
+        .testimonial-content::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4rem;
+            color: var(--primary);
+            opacity: 0.2;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+        }
+
+        .author-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .slider-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .slider-btn.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-dark-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--bg-dark-secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                margin-bottom: 3rem;
+            }
+
+            .hero-btns {
+                justify-content: center;
+            }
+
+            .steps {
+                flex-direction: column;
+                gap: 3rem;
+            }
+
+            .steps::before {
+                display: none;
+            }
+
+            .chat-container {
+                flex-direction: column;
+            }
+
+            .chat-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #E5E7EB;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .nav-actions .btn {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+
+            .buddies-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-avatars .avatar {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(0, 180, 216, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        .loader::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(0, 180, 216, 0.1);
+            border-radius: 50%;
+            top: -5px;
+            left: -5px;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-comments"></i>
+                LanguageBuddy
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#find-buddy">Find a Buddy</a></li>
+                <li><a href="#chat">Chat</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="#" class="btn btn-outline">Sign In</a>
+                <a href="#" class="btn btn-primary">Join Now</a>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Find Your Perfect Language Partner Today</h1>
+                <p>Connect with native speakers around the world to practice languages through text, voice, or video chat. Make new friends while learning!</p>
+                <div class="hero-btns">
+                    <a href="#find-buddy" class="btn btn-secondary">Find a Buddy</a>
+                    <a href="#" class="btn btn-outline" style="background: rgba(255,255,255,0.2); color: white; border-color: white;">Join Now</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="chat-avatars">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <div class="chat-bubble">
+                    <p>¡Hola! Would you like to practice Spanish with me?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How LanguageBuddy Works</h2>
+                <p>Start practicing a new language in just three simple steps</p>
+            </div>
+            <div class="steps">
+                <div class="step fade-in">
+                    <div class="step-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3>Create Your Profile</h3>
+                    <p>Tell us which languages you speak and which you want to learn</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Find a Partner</h3>
+                    <p>Browse through native speakers who want to learn your language</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Start Chatting</h3>
+                    <p>Connect via text, voice, or video and practice together</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose LanguageBuddy?</h2>
+                <p>Our platform makes language learning social, fun, and effective</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3>Global Community</h3>
+                    <p>Connect with native speakers from around the world and learn about different cultures.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <h3>Multiple Chat Options</h3>
+                    <p>Practice through text, voice messages, or video calls based on your comfort level.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Learning Resources</h3>
+                    <p>Access conversation starters, vocabulary helpers, and pronunciation guides.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Find a Buddy Section -->
+    <section class="section" id="find-buddy">
+        <div class="container">
+            <div class="section-title">
+                <h2>Find Your Language Buddy</h2>
+                <p>Connect with native speakers who want to learn your language</p>
+            </div>
+            
+            <div class="buddy-search">
+                <div class="search-form">
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option value="">I want to learn...</option>
+                            <option value="spanish">Spanish</option>
+                            <option value="french">French</option>
+                            <option value="german">German</option>
+                            <option value="japanese">Japanese</option>
+                            <option value="mandarin">Mandarin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option value="">I speak...</option>
+                            <option value="english">English</option>
+                            <option value="spanish">Spanish</option>
+                            <option value="french">French</option>
+                            <option value="german">German</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option value="">Proficiency Level</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                            <option value="native">Native</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary">Search</button>
+                </div>
+            </div>
+            
+            <div class="buddies-grid">
+                <!-- Buddy 1 -->
+                <div class="buddy-card fade-in">
+                    <div class="buddy-header">
+                        <div class="buddy-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="buddy-name">María Rodríguez</div>
+                        <div class="buddy-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Madrid, Spain
+                        </div>
+                    </div>
+                    <div class="buddy-content">
+                        <div class="buddy-languages">
+                            <span class="language-tag">Spanish (Native)</span>
+                            <span class="language-tag">English (Intermediate)</span>
+                            <span class="language-tag">Learning: French</span>
+                        </div>
+                        <p class="buddy-bio">Hola! I'm a Spanish teacher from Madrid. I love meeting new people and sharing my culture. I can help you with conversational Spanish!</p>
+                        <div class="buddy-actions">
+                            <button class="btn btn-outline">Message</button>
+                            <button class="btn btn-primary">Connect</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Buddy 2 -->
+                <div class="buddy-card fade-in">
+                    <div class="buddy-header">
+                        <div class="buddy-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="buddy-name">Pierre Dubois</div>
+                        <div class="buddy-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Paris, France
+                        </div>
+                    </div>
+                    <div class="buddy-content">
+                        <div class="buddy-languages">
+                            <span class="language-tag">French (Native)</span>
+                            <span class="language-tag">English (Advanced)</span>
+                            <span class="language-tag">Learning: Japanese</span>
+                        </div>
+                        <p class="buddy-bio">Bonjour! I'm a software engineer from Paris. I enjoy discussing technology, travel, and food. Let's practice French and English together!</p>
+                        <div class="buddy-actions">
+                            <button class="btn btn-outline">Message</button>
+                            <button class="btn btn-primary">Connect</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Buddy 3 -->
+                <div class="buddy-card fade-in">
+                    <div class="buddy-header">
+                        <div class="buddy-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="buddy-name">Yuki Tanaka</div>
+                        <div class="buddy-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Tokyo, Japan
+                        </div>
+                    </div>
+                    <div class="buddy-content">
+                        <div class="buddy-languages">
+                            <span class="language-tag">Japanese (Native)</span>
+                            <span class="language-tag">English (Intermediate)</span>
+                            <span class="language-tag">Learning: Spanish</span>
+                        </div>
+                        <p class="buddy-bio">Konnichiwa! I'm a university student studying international relations. I love anime, music, and cooking. Let's learn together!</p>
+                        <div class="buddy-actions">
+                            <button class="btn btn-outline">Message</button>
+                            <button class="btn btn-primary">Connect</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Preview Section -->
+    <section class="section chat-preview" id="chat">
+        <div class="container">
+            <div class="section-title">
+                <h2>Practice Anytime, Anywhere</h2>
+                <p>Our chat interface makes language practice easy and fun</p>
+            </div>
+            
+            <div class="chat-container">
+                <div class="chat-sidebar">
+                    <div class="chat-contact active">
+                        <div class="contact-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="contact-info">
+                            <h4>María Rodríguez</h4>
+                            <p>Online - Spanish</p>
+                        </div>
+                    </div>
+                    <div class="chat-contact">
+                        <div class="contact-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="contact-info">
+                            <h4>Pierre Dubois</h4>
+                            <p>Last seen 2h ago</p>
+                        </div>
+                    </div>
+                    <div class="chat-contact">
+                        <div class="contact-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="contact-info">
+                            <h4>Yuki Tanaka</h4>
+                            <p>Online - Japanese</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-main">
+                    <div class="chat-header">
+                        <div class="chat-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h3>María Rodríguez</h3>
+                            <p>Online - Practicing English</p>
+                        </div>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="message received">
+                            <div class="message-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="message-bubble">
+                                ¡Hola! How are you today?
+                            </div>
+                        </div>
+                        <div class="message sent">
+                            <div class="message-bubble">
+                                Hi María! I'm good, thanks. How about you?
+                            </div>
+                            <div class="message-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <div class="message received">
+                            <div class="message-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="message-bubble">
+                                Estoy bien, gracias. ¿Quieres practicar español hoy?
+                            </div>
+                        </div>
+                        <div class="message sent">
+                            <div class="message-bubble">
+                                Sí, por favor. Can we start with basic conversation?
+                            </div>
+                            <div class="message-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <div class="message received">
+                            <div class="message-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="message-bubble">
+                                ¡Claro! What did you do yesterday?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" class="form-control" placeholder="Type your message...">
+                        <button class="btn btn-primary">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Users Say</h2>
+                <p>Join thousands of language learners who have found their perfect study partners</p>
+            </div>
+            <div class="testimonials-slider">
+                <div class="testimonials-container">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">"I've been using LanguageBuddy for 3 months and my Spanish has improved dramatically. My buddy María is so patient and helpful. We've become good friends!"</p>
+                            <div class="testimonial-author">
+                                <div class="author-image">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="author-info">
+                                    <h4>Sarah Johnson</h4>
+                                    <p>Learning Spanish</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">"As a French native speaker, I wanted to improve my English. LanguageBuddy connected me with amazing people from different countries. It's fun and effective!"</p>
+                            <div class="testimonial-author">
+                                <div class="author-image">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="author-info">
+                                    <h4>Pierre Dubois</h4>
+                                    <p>Learning English</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">"I was nervous about speaking Japanese with natives, but my buddy Yuki made me feel so comfortable. Now I can have basic conversations confidently!"</p>
+                            <div class="testimonial-author">
+                                <div class="author-image">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="author-info">
+                                    <h4>Michael Chen</h4>
+                                    <p>Learning Japanese</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <div class="slider-btn active"></div>
+                    <div class="slider-btn"></div>
+                    <div class="slider-btn"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>LanguageBuddy</h3>
+                    <p>Connecting language learners worldwide through meaningful conversations and cultural exchange.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#find-buddy">Find a Buddy</a></li>
+                        <li><a href="#chat">Chat</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Language Tips</a></li>
+                        <li><a href="#">Conversation Starters</a></li>
+                        <li><a href="#">Pronunciation Guide</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:hello@languagebuddy.com">hello@languagebuddy.com</a></li>
+                        <li><a href="#">Support Center</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">Partnerships</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 LanguageBuddy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', function() {
+            const loadingScreen = document.querySelector('.loading-screen');
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+            }, 1000);
+        });
+
+        // Theme Toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+
+        // Scroll Animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = function() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        // Initial check in case elements are already in view
+        fadeInOnScroll();
+
+        // Testimonial Slider
+        const testimonialsContainer = document.querySelector('.testimonials-container');
+        const sliderButtons = document.querySelectorAll('.slider-btn');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            testimonialsContainer.style.transform = `translateX(-${index * 100}%)`;
+            
+            // Update active button
+            sliderButtons.forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+            
+            currentSlide = index;
+        }
+
+        // Add click events to slider buttons
+        sliderButtons.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+
+        // Auto slide change
+        setInterval(() => {
+            let nextSlide = (currentSlide + 1) % sliderButtons.length;
+            showSlide(nextSlide);
+        }, 5000);
+
+        // Sticky Header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animate message appearance in chat
+        const messages = document.querySelectorAll('.message');
+        messages.forEach((message, index) => {
+            message.style.animationDelay = `${index * 0.2}s`;
+        });
+    </script>
+</body>
+</html>
